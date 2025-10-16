@@ -50,14 +50,16 @@ use_ema: false
 ema_decay: 0.999
 lr: 0.0001
 clip_grad_norm: 10.
-accelerator: cpu
+accelerator: cuda
 checkpoint_prefix: af3.ckpt.
 checkpoint_every: 1
 checkpoint_folder: ./test-folder/checkpoints
 overwrite_checkpoints: false
 dataset_config:
     dataset_type: pdb
-    train_folder: ./test-folder/data/train
+    train_folder: ./data/pdb_data/train_mmcifs
+    valid_folder: ./data/pdb_data/val_mmcifs
+    test_folder: ./data/pdb_data/test_mmcifs
     convert_pdb_to_atom: true
     pdb_to_atom_kwargs:
         n_jobs: 1

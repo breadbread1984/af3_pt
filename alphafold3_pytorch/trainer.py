@@ -4,7 +4,7 @@ from functools import wraps, partial
 from contextlib import contextmanager
 from pathlib import Path
 
-from alphafold3_pytorch.alphafold3 import Alphafold3
+from alphafold3_pytorch.alphafold3 import Alphafold3, dict_to_device
 
 from beartype.typing import TypedDict, List, Callable
 
@@ -532,9 +532,11 @@ class Trainer:
                 with self.fabric.no_backward_sync(self.model, enabled = is_accumulating):
 
                     # model forwards
+                    atom_dict = inputs.model_forward_dict()
+                    atom_dict = dict_to_device(atom_dict, device = self.device)
 
                     loss, loss_breakdown = self.model(
-                        **inputs.model_forward_dict(),
+                        **atom_dict,
                         return_loss_breakdown = True
                     )
 
