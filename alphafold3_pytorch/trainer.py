@@ -527,7 +527,11 @@ class Trainer:
             for grad_accum_step in range(self.grad_accum_every):
                 is_accumulating = grad_accum_step < (self.grad_accum_every - 1)
 
-                inputs = next(dl)
+                try:
+                    inputs = next(dl)
+                except Exception as e:
+                    print(f'skip current batch due to error: {e}')
+                    continue
 
                 with self.fabric.no_backward_sync(self.model, enabled = is_accumulating):
 
@@ -551,6 +555,7 @@ class Trainer:
 
                     self.fabric.backward(loss / self.grad_accum_every)
 
+            if train_loss_breakdown is None: continue
             # log entire loss breakdown
 
             self.log(**train_loss_breakdown)

@@ -42,10 +42,10 @@ model:
         atom_encoder_kwargs:
             attn_pair_bias_kwargs:
                 dim_head: 4
-num_train_steps: 1
+num_train_steps: 100000000000000
 batch_size: 1
 grad_accum_every: 1
-valid_every: 1
+valid_every: 1000
 use_ema: false
 ema_decay: 0.999
 lr: 0.0001
