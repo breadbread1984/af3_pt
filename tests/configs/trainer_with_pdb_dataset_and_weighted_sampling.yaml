@@ -52,7 +52,7 @@ lr: 0.0001
 clip_grad_norm: 10.
 accelerator: cuda
 checkpoint_prefix: af3.ckpt.
-checkpoint_every: 1
+checkpoint_every: 1000
 checkpoint_folder: ./test-folder/checkpoints
 overwrite_checkpoints: false
 dataset_config:
