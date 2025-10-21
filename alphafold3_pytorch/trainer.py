@@ -30,6 +30,8 @@ from alphafold3_pytorch.data import (
     mmcif_writing
 )
 
+import timeout_decorator
+
 import torch
 from torch import tensor
 from torch.nn import Module
@@ -527,7 +529,11 @@ class Trainer:
             for grad_accum_step in range(self.grad_accum_every):
                 is_accumulating = grad_accum_step < (self.grad_accum_every - 1)
 
-                inputs = next(dl)
+                try:
+                    inputs = next(dl)
+                except timeout_decorator.timeout_decorator.TimeoutError as e:
+                    print(f'skip current batch due to error: {e}')
+                    continue
 
                 with self.fabric.no_backward_sync(self.model, enabled = is_accumulating):
 
@@ -552,7 +558,7 @@ class Trainer:
                     self.fabric.backward(loss / self.grad_accum_every)
 
             # log entire loss breakdown
-
+            if train_loss_breakdown is None: continue
             self.log(**train_loss_breakdown)
 
             self.print(f'loss: {total_loss:.3f}')
