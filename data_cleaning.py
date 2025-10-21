@@ -15,11 +15,11 @@ def add_options():
 def main(unused_argv):
   error_pattern = """_pdbx_struct_assembly_gen.assembly_id
 #
-struct_conn.ptnr1_auth_seq_id"""
+_struct_conn.ptnr1_auth_seq_id"""
   right_pattern = """_pdbx_struct_assembly_gen.assembly_id
 #
 loop_
-struct_conn.ptnr1_auth_seq_id"""
+_struct_conn.ptnr1_auth_seq_id"""
   update_list = list()
   for root, dirs, files in tqdm(walk(FLAGS.input_dir)):
     for f in files:
