@@ -4,6 +4,7 @@ from absl import flags, app
 from os import walk
 from os.path import splitext, join
 import json
+from tqdm import tqdm
 
 FLAGS = flags.FLAGS
 
@@ -24,12 +25,12 @@ struct_conn.ptnr1_auth_seq_id"""
     for f in files:
       stem, ext = splitext(f)
       if ext != '.cif': continue
-      with open(join(root, f), 'r') as f:
-        content = f.read()
+      with open(join(root, f), 'r') as ios:
+        content = ios.read()
       new_content = content.replace(error_pattern, right_pattern)
       if content != new_content: update_list.append(join(root, f))
-      with open(join(root, f), 'w') as f:
-        f.write(new_content)
+      with open(join(root, f), 'w') as ios:
+        ios.write(new_content)
   with open(FLAGS.output, 'w') as f:
     f.write(json.dumps(update_list))
 
