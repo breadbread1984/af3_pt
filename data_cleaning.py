@@ -25,8 +25,8 @@ def main(unused_argv):
         content = ios.read()
       pos = content.find(pattern)
       if pos == -1: continue
-      if not content[pos + len(pattern):].startswith('loop_'):
-        new_content = content[:pos + len(pattern)] + 'loop_\n' + content[pos + len(pattern):]
+      if content[pos + len(pattern):].startswith('loop_'): continue
+      new_content = content[:pos + len(pattern)] + 'loop_\n' + content[pos + len(pattern):]
       update_list.append(join(root, f))
       with open(join(root, f), 'w') as ios:
         ios.write(new_content)
