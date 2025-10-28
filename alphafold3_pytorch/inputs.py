@@ -600,13 +600,16 @@ def pdb_dataset_to_atom_inputs(
 
     @delayed
     def pdb_input_to_atom_file(index: int, path: str):
-        """Convert a PDB input to an atom file."""
+      """Convert a PDB input to an atom file."""
+      try:
         pdb_input = pdb_dataset[index]
 
         atom_input = to_atom_input_fn(pdb_input)
 
         atom_input_path = path / f"{index}.pt"
-        atom_input_to_file(atom_input, atom_input_path)
+        atom_input_to_file(atom_input, atom_input_path, overwrite = overwrite_existing)
+      except:
+        return
 
     Parallel(n_jobs=n_jobs, **parallel_kwargs)(
         pdb_input_to_atom_file(index, output_atom_folder)
