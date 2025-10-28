@@ -13,7 +13,7 @@ def add_options():
 
 def main(unused_argv):
   # some pdb sample cannot be preprocessed. refer to https://github.com/lucidrains/alphafold3-pytorch/issues/296
-  # to prevent the exception in preprocessing interrupt training loop, we commit https://github.com/breadbread1984/af3_pt/commit/0a383cf660ed33739289e730c76d6cf9695d765b
+  # to prevent the exception in preprocessor interrupting training loop, we commit https://github.com/breadbread1984/af3_pt/commit/0a383cf660ed33739289e730c76d6cf9695d765b
   config_path = './tests/configs/trainer_with_pdb_dataset.yaml' if FLAGS.weighted_sampling == False else \
                 './tests/configs/trainer_with_pdb_dataset_and_weighted_sampling.yaml'
   trainer = create_trainer_from_yaml(config_path)
