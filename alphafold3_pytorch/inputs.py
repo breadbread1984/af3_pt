@@ -4396,17 +4396,20 @@ class PDBDataset(Dataset):
         if self.inference:
             cropping_config = None
 
-        i = PDBInput(
-            mmcif_filepath=str(mmcif_filepath),
-            chains=(chain_id_1, chain_id_2),
-            cropping_config=cropping_config,
-            training=self.training,
-            inference=self.inference,
-            **self.pdb_input_kwargs,
-        )
+        try:
+          i = PDBInput(
+              mmcif_filepath=str(mmcif_filepath),
+              chains=(chain_id_1, chain_id_2),
+              cropping_config=cropping_config,
+              training=self.training,
+              inference=self.inference,
+              **self.pdb_input_kwargs,
+          )
 
-        if self.return_atom_inputs:
-            i = maybe_transform_to_atom_input(i)
+          if self.return_atom_inputs:
+              i = maybe_transform_to_atom_input(i)
+        except:
+          return None
 
         return i
 
