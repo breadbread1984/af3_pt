@@ -30,8 +30,6 @@ from alphafold3_pytorch.data import (
     mmcif_writing
 )
 
-import timeout_decorator
-
 import torch
 from torch import tensor
 from torch.nn import Module
