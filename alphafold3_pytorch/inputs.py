@@ -4561,19 +4561,22 @@ class PDBDistillationDataset(Dataset):
         if self.inference:
             cropping_config = None
 
-        i = PDBInput(
-            mmcif_filepath=str(mmcif_filepath),
-            chains=(chain_id_1, chain_id_2),
-            cropping_config=cropping_config,
-            training=self.training,
-            inference=self.inference,
-            distillation_multimer_sampling_ratio=self.multimer_sampling_ratio,
-            distillation_pdb_ids=list(self.uniprot_to_pdb_id_mapping[accession_id.split("-")[1]]),
-            **self.pdb_input_kwargs,
-        )
+        try:
+          i = PDBInput(
+              mmcif_filepath=str(mmcif_filepath),
+              chains=(chain_id_1, chain_id_2),
+              cropping_config=cropping_config,
+              training=self.training,
+              inference=self.inference,
+              distillation_multimer_sampling_ratio=self.multimer_sampling_ratio,
+              distillation_pdb_ids=list(self.uniprot_to_pdb_id_mapping[accession_id.split("-")[1]]),
+              **self.pdb_input_kwargs,
+          )
 
-        if self.return_atom_inputs:
-            i = maybe_transform_to_atom_input(i)
+          if self.return_atom_inputs:
+              i = maybe_transform_to_atom_input(i)
+        except:
+          return None
 
         return i
 

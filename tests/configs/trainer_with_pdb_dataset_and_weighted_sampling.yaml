@@ -60,6 +60,7 @@ dataset_config:
     train_folder: ./data/pdb_data/train_mmcifs
     valid_folder: ./data/pdb_data/val_mmcifs
     test_folder: ./data/pdb_data/test_mmcifs
+    return_atom_inputs: true
     train_weighted_sampler:
         interface_mapping_path: ./data/test/pdb_data/data_caches/clusterings/interface_cluster_mapping.csv
         chain_mapping_paths:
