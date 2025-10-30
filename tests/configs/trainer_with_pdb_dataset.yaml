@@ -60,3 +60,4 @@ dataset_config:
     train_folder: ./data/pdb_data/train_mmcifs
     valid_folder: ./data/pdb_data/val_mmcifs
     test_folder: ./data/pdb_data/test_mmcifs
+    return_atom_inputs: true

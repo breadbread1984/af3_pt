@@ -236,6 +236,8 @@ class TrainerConfig(BaseModelWithExtra):
 
             dataset_type = dataset_config.dataset_type
             dataset_kwargs = dataset_config.kwargs
+            if exists(dataset_config.return_atom_inputs):
+              dataset_kwargs.update(return_atom_inputs = dataset_config.return_atom_inputs)
 
             convert_pdb_to_atom = dataset_config.convert_pdb_to_atom
             pdb_to_atom_kwargs = dataset_config.pdb_to_atom_kwargs
