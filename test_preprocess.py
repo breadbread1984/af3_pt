@@ -6,7 +6,7 @@ from alphafold3_pytorch.inputs import PDBInput, INPUT_TO_ATOM_TRANSFORM
 
 preprocessor = INPUT_TO_ATOM_TRANSFORM.get(PDBInput)
 i = PDBInput(
-  mmcif_filepath = 'data/pdb_data/train_mmcifs/hr/3hr2-assembly1.cif',
+  mmcif_filepath = '2kqz-assembly1.cif',
   chains = (None, None),
   cropping_config = {
     "contiguous_weight": 0.2,
@@ -19,3 +19,5 @@ i = PDBInput(
 )
 
 result = preprocessor(i)
+res_idx, token_idx, asym_id, entity_id, sym_id = result.additional_molecule_feats.unbind(dim = -1)
+
